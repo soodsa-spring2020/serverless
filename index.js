@@ -22,7 +22,7 @@ exports.handler = function(event, context) {
     sendPromise.then(data => { 
         context.done(null, 'Success'); 
     }).catch(err => {
-        context.done(err, 'Failed');
+        context.done(null, 'Failed');
     });
     
 };
