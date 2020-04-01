@@ -1,14 +1,14 @@
 const AWS = require('aws-sdk');
 exports.handler = function(event, context) {
-     var m = JSON.parse(event.Records[0].Sns.Message);
+     var message = JSON.parse(event.Records[0].Sns.Message);
      const params = {
         Destination: { 
-            ToAddresses: [m.email]
+            ToAddresses: [message.email]
         },
         Message: { 
             Body: {  
                 Text: { 
-                    Data: m.bill
+                    Data: message.bill
                 }
             },
             Subject: { 
