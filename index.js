@@ -1,9 +1,9 @@
 const AWS = require('aws-sdk');
 var ddb = new AWS.DynamoDB();
-const tableName = "{{env `ddb_table_name`}}"; //'DUE_BILL_EMAIL_DB';
-const subject = "{{env `email_subject`}}"; //'Due Bills';
-const source = "{{env `email_source`}}"; //'sood.sa@husky.neu.edu';
-const ttl = "{{env `ddb_ttl`}}"; //40;
+const tableName = "{{env `DDB_TABLE_NAME`}}"; //'DUE_BILL_EMAIL_DB';
+const subject = "{{env `EMAIL_SUBJECT`}}"; //'Due Bills';
+const source = "{{env `EMAIL_SOURCE`}}"; //'sood.sa@husky.neu.edu';
+const ttl = "{{env `DDB_TTL`}}"; //40;
 
 exports.handler = function(event, context) {
     var message = JSON.parse(event.Records[0].Sns.Message);
