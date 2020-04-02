@@ -2,7 +2,7 @@ const AWS = require('aws-sdk');
 var ddb = new AWS.DynamoDB();
 const tableName = process.env.ddb_table_name;
 const subject = "Due Bills";
-const source = "sood.sa@husky.neu.edu";
+const source = process.env.source;
 const ttl = process.env.ttl;
 
 exports.handler = function(event, context) {
