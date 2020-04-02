@@ -7,7 +7,7 @@ const ttl = process.env.ttl;
 
 exports.handler = function(event, context) {
     var message = JSON.parse(event.Records[0].Sns.Message);
-    var SECONDS_IN_AN_HOUR = ttl;
+    var SECONDS_IN_AN_HOUR = parseInt(ttl);
     var secondsSinceEpoch = Math.round(Date.now() / 1000);
     var expirationTime = secondsSinceEpoch + SECONDS_IN_AN_HOUR;
 
@@ -22,6 +22,7 @@ exports.handler = function(event, context) {
 
     const get = ddb.scan(getParams).promise();
     get.then(data => {
+        console.log(data);
         if(data.Count == 0) { 
             var params = {
                 Destination: { ToAddresses: [message.email] },
