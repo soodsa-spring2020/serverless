@@ -1,0 +1,29 @@
+version: 2.1
+
+jobs:
+  build_deploy:
+    description: Build and Deploy application
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: "Update Packages"
+          command: apt-get update
+      - run:
+          name: "Installing zip Package"
+          command: apt-get install zip
+      - run:
+          name: "Create Application Package"
+          command: zip -r ${DEPLOY_APP_KEY} .
+      - run:
+          name: "Upload to S3"
+          command: aws s3 cp ${DEPLOY_APP_KEY} s3://${S3_BUCKET_NAME}
+workflows:
+  version: 2
+  build_deploy:
+    jobs:
+      - build_deploy:
+          filters:
+            branches:
+              only:
+                - master
