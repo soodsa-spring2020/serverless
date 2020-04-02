@@ -8,16 +8,25 @@ jobs:
       - checkout
       - run:
           name: "Update Packages"
-          command: apt-get update
+          command: sudo apt-get update
       - run:
           name: "Installing zip Package"
-          command: apt-get install zip
+          command: sudo apt-get install zip unzip
+      - run:
+          name: "Download AWS CLI"
+          command: sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" 
+      - run:
+          name: "Unzip AWS CLI Package"
+          command: sudo unzip awscliv2.zip
+      - run:
+          name: "Install AWS CLI"
+          command: sudo ./aws/install
       - run:
           name: "Create Application Package"
-          command: zip -r ${DEPLOY_APP_KEY} .
+          command: sudo zip -r ${DEPLOY_APP_KEY} .
       - run:
           name: "Upload to S3"
-          command: aws s3 cp ${DEPLOY_APP_KEY} s3://${S3_BUCKET_NAME}
+          command: sudo aws s3 cp ${DEPLOY_APP_KEY} s3://${S3_BUCKET_NAME}
 workflows:
   version: 2
   build_deploy:
